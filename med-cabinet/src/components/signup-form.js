@@ -99,7 +99,7 @@ export default function SignUpForm () {
     }
 
     reuturn(
-       <div>
+       <SignUpForm>
         <h2>Sign up Form</h2>
         <form>
             <label>username</label>
@@ -119,8 +119,8 @@ export default function SignUpForm () {
             onChange={changeValues}/>
 
             <button onClick={onSubmit} disabled={formDisabled}>submit</button>
-        </form>
-        </div>
+            </form>
+        </SignUpForm>
     )
 
 }
