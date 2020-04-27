@@ -108,7 +108,7 @@ export default function SignUpForm () {
             username="username"
             errors={formErrors.username}
             value={initialFormValues.name}
-            onChange={changeValues}/>
+            onChange={onInputChange}/>
 
             <label>password</label>
             <input 
@@ -116,7 +116,7 @@ export default function SignUpForm () {
             password="password"
             errors={formErrors.password}
             value={initialFormValues.password}
-            onChange={changeValues}/>
+            onChange={onInputChange}/>
 
             <button onClick={onSubmit} disabled={formDisabled}>submit</button>
             </form>
