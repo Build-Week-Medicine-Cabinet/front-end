@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import * as yup from "yup";
 import styled from "styled-components";
+import axios from "axios";
 
-const SignUpForm = styled.div`
+
+/*********styled components *************/
+const StyledForm = styled.div`
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -13,8 +16,17 @@ const SignUpForm = styled.div`
     padding: 12px;
     background-color:white;
     width: 50%;
+    margin-left:25%;
 `
+const Warning = styled.div`
+    width: 100%;
+    font-size:1.5rem;
+    color: red;
+    box-shadow: none;
+    margin: 1% 0;
 
+`
+/************set initial form values and errors ******************/
 const initialFormValues = {
     username:'',
     password:''
@@ -25,6 +37,7 @@ const initialFormErrors = {
     password:''
 }
 
+/************form validation or schema ****************/
 const formValidation = yup.object().shape({
     username: yup
     .string()
@@ -38,23 +51,27 @@ const formValidation = yup.object().shape({
 
 
 
-export default function SignUpForm () {
-
+export default function SignupForm () {
+    const [users, setUsers] = useState([])
     const [formValues, setFormValues] = useState(initialFormValues)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
     const [formDisabled, setFormDisabled] = useState(true)
 
-    const postNewUser = newUser => {
 
-        axios.post(url,newUser)
+    /**********setup post new user no url to post to yet ********/
+   /* const postUser = (user) => {
+
+        axios.post(url,user)
         .then(res => {
-            setNewUser([res.data, ...users])
+            setUsers([...users, res.data])
+            consol.log(res.data)
         })
         .catch(err => {
             console.log('err')
         })
     }
-
+8?
+    /**********cannot input form until data is inputed by user for username and password *******/
     useEffect(() => {
         formValidation.isValid(formValues)
         .then(valid => {
@@ -62,14 +79,17 @@ export default function SignUpForm () {
         })
     },[formValues])
 
-    const onSubmit = evt => {
+    useEffect(() => {
+
+    },[users])
+   const onSubmit = evt => {
         evt.preventDefault()
 
         const newUser = {
             username: formValues.username,
             password: formValues.password
         }
-        postUser(newUser)
+       // postUsers(newUser)
         setFormValues(initialFormValues)
     }
 
@@ -98,15 +118,18 @@ export default function SignUpForm () {
         })
     }
 
-    reuturn(
-       <SignUpForm>
+    return(
+       <StyledForm>
         <h2>Sign up Form</h2>
         <form>
+            <Warning>
+                {formErrors.username}
+                {formErrors.password}
+            </Warning>
             <label>username</label>
             <input 
             type="text"
             username="username"
-            errors={formErrors.username}
             value={formValues}
             onChange={onInputChange}/>
 
@@ -114,13 +137,12 @@ export default function SignUpForm () {
             <input 
             type="text"
             password="password"
-            errors={formErrors.password}
             value={formValues.password}
             onChange={onInputChange}/>
 
             <button onClick={onSubmit} disabled={formDisabled}>submit</button>
             </form>
-        </SignUpForm>
+        </StyledForm>
     )
 
 }
