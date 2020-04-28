@@ -64,7 +64,7 @@ export default function SignupForm () {
 
 
     /**********setup post new user no url to post to yet ********/
-   /* const postUser = (user) => {
+    const postUser = (user) => {
 
         axios.post(url,user)
         .then(res => {
@@ -75,7 +75,7 @@ export default function SignupForm () {
             console.log('err')
         })
     }
-8?
+
     /**********cannot input form until data is inputed by user for username and password *******/
     useEffect(() => {
         formValidation.isValid(formValues)
@@ -94,7 +94,7 @@ export default function SignupForm () {
             username: formValues.username,
             password: formValues.password
         }
-       // postUsers(newUser)
+        postUsers(newUser)
         setFormValues(initialFormValues)
     }
 
@@ -138,6 +138,7 @@ export default function SignupForm () {
             <Warning>
                 {formErrors.username}
                 {formErrors.password}
+                {formErrors.ageVerification}
             </Warning>
             <label>username</label>
             <input 

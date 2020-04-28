@@ -3,6 +3,31 @@ import * as yup from "yup";
 import styled from "styled-components";
 import axios from "axios";
 
+
+/****************stylling ********************/
+const StyledSignIn = styled.form `
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    border:1px solid rgb(210, 210, 210 );
+    border-radius: 5px;
+    box-shadow: 10px 8px 12px -2px rgb(128, 127, 197);
+    margin: 8px;
+    padding: 12px;
+    background-color:white;
+    width: 50%;
+    margin-left:25%;
+`
+
+const StyledWarnings = styled.div `
+    width: 100%;
+    font-size:1.5rem;
+    color: red;
+    box-shadow: none;
+    margin: 1% 0;
+`
+
+/*************set initial form values and errors  ********************/
 const initialFormValues = {
     username:'',
     password:'',
@@ -12,7 +37,7 @@ const initialFormErrors = {
     username: '',
     password:'',
 }
-
+/************* form validation/schema  ***********************/
 const formValidation = yup.object().shape({
     username: yup
     .string()
@@ -32,6 +57,19 @@ export default function SignInForm (){
     const [formErrors, setFormErrors] = useState(initialFormErrors)
     const [formDisabled, setFormDisabled] = useState(true)
 
+    /**************post user *****************/
+
+    const postUser = user => {
+        axios.post(url, friend)
+        .then(res => {
+            setUser(res.data)
+        })
+        .catch(err => {
+            console.log('err')
+        })
+    }
+
+    /*************enable/disable the form depending on what is inputted ************/
     useEffect(() => {
         formValidation.isValid(formValues)
         .then(valid => {
@@ -46,10 +84,11 @@ export default function SignInForm (){
             username: formValues.username,
             password: formValues.password
         }
-        // postUser(user)
+         postUser(user)
         setFormValues(initialFormValues)
     }
 
+    /*************validation for form values when they change *************/
     const onInputChange = evt => {
         const name = evt.target.name 
         const value = evt.target.name
@@ -82,6 +121,10 @@ export default function SignInForm (){
 
         <form>
             <h2>Sign In</h2>
+            <StyledWarnings>
+                {formErrors.username}
+                {formErrors.password}
+            </StyledWarnings>
             <label>Username</label>
             <input 
             values={formValues.username}
