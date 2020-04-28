@@ -123,8 +123,16 @@ export default function SignupForm () {
         })
     }
 
+    /************check box  change*******/
+    const checkboxChange = (evt) => {
+        setFormValues({
+            ...formValues,
+            [event.target.name]: event.target.checked,
+        })
+    }
+
     return(
-       <StyledForm>
+       <StyledForm onSubmit={submitUser}>
         <h2>Sign up Form</h2>
         
             <Warning>
@@ -144,6 +152,13 @@ export default function SignupForm () {
             password="password"
             value={formValues.password}
             onChange={onInputChange}/>
+
+            <label>You must be 18 to use</label>
+            <input
+            type="checkbox"
+            name="ageVerification"
+            onChange={checkboxChange}
+            />
 
             <button onClick={onSubmit} disabled={formDisabled}>submit</button>
             
