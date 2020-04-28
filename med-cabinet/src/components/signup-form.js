@@ -5,7 +5,7 @@ import axios from "axios";
 
 
 /*********styled components *************/
-const StyledForm = styled.div`
+const StyledForm = styled.form`
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -29,12 +29,14 @@ const Warning = styled.div`
 /************set initial form values and errors ******************/
 const initialFormValues = {
     username:'',
-    password:''
+    password:'',
+    ageVerification: false,
 }
 
 const initialFormErrors = {
     username: '',
-    password:''
+    password:'',
+    ageVerification: false,
 }
 
 /************form validation or schema ****************/
@@ -46,7 +48,10 @@ const formValidation = yup.object().shape({
     password: yup
     .string()
     .min(4, "password must be at least 4 charaters long")
-    .required("password is required")
+    .required("password is required"),
+    ageVerification: yup
+    .boolean()
+    .oneOf([false] , "age must be at least 18")
 })
 
 
@@ -121,7 +126,7 @@ export default function SignupForm () {
     return(
        <StyledForm>
         <h2>Sign up Form</h2>
-        <form>
+        
             <Warning>
                 {formErrors.username}
                 {formErrors.password}
@@ -141,7 +146,7 @@ export default function SignupForm () {
             onChange={onInputChange}/>
 
             <button onClick={onSubmit} disabled={formDisabled}>submit</button>
-            </form>
+            
         </StyledForm>
     )
 
