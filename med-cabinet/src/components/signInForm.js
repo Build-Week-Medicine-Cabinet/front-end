@@ -26,8 +26,7 @@ const StyledWarnings = styled.div `
     box-shadow: none;
     margin: 1% 0;
 `
-
-/*************set initial form values and errors  ********************/
+/************set initial form values and errors ******************/
 const initialFormValues = {
     username:'',
     password:'',
@@ -37,39 +36,41 @@ const initialFormErrors = {
     username: '',
     password:'',
 }
-/************* form validation/schema  ***********************/
+/************form validation or schema ****************/
 const formValidation = yup.object().shape({
     username: yup
-    .string()
-    .min(4, "username must have at least 4 characters")
-    .required("username is required"),
+        .string()
+        .min(4, "username must have at least 4 characters")
+        .required("username is required"),
     password: yup
-    .string()
-    .min(4, "password must be at least 4 charaters long")
-    .required("password is required"),
+        .string()
+        .min(4, "password must be at least 4 charaters long")
+        .required("password is required"),
 })
 
 
-export default function SignInForm (){
 
-    const [user, setUser] = useState([])
+export default function SignupForm () {
+    const [users, setUsers] = useState([])
     const [formValues, setFormValues] = useState(initialFormValues)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
     const [formDisabled, setFormDisabled] = useState(true)
 
-    /**************post user *****************/
 
-    const postUser = user => {
-        axios.post(url, friend)
-        .then(res => {
-            setUser(res.data)
-        })
-        .catch(err => {
-            console.log('err')
-        })
+    /**********setup post new user no url to post to yet ********/
+    const postUser = (user) => {
+
+        // axios.post(url, user)
+        // .then(res => {
+        //     setUsers([...users, res.data])
+        //     console.log(res.data)
+        // })
+        // .catch(err => {
+        //     console.log(err)
+        // })
     }
 
-    /*************enable/disable the form depending on what is inputted ************/
+    /**********cannot input form until data is inputed by user for username and password *******/
     useEffect(() => {
         formValidation.isValid(formValues)
         .then(valid => {
@@ -77,68 +78,70 @@ export default function SignInForm (){
         })
     },[formValues])
 
-    const onSubmit = evt => {
-        evt.preventDefault()
+    useEffect(() => {
 
-        const user = {
+    },[users])
+   const submitUser = event => {
+        event.preventDefault()
+
+        const newUser = {
             username: formValues.username,
             password: formValues.password
         }
-         postUser(user)
+        postUser(newUser)
         setFormValues(initialFormValues)
     }
 
-    /*************validation for form values when they change *************/
-    const onInputChange = evt => {
-        const name = evt.target.name 
-        const value = evt.target.name
+    const onInputChange = event => {
+        const name = event.target.name
+        const value = event.target.value
 
         yup
-            .reach(formValidation, name)
-            .validate(value)
-            .then(valid => {
-                setFormErrors({
-                    ...formErrors,
-                    [name]: '',
-                })
+        .reach(formValidation, name)
+        .validate(value)
+        .then(valid => {
+            setFormErrors({
+                ...formErrors,
+                [name]: '',
             })
-
-            .catch(err => {
-                setFormErrors({
-                    ...formErrors,
-                    [name]: er.errors[0]
-                })
+        })
+        .catch(err => {
+            setFormErrors({
+                ...formErrors,
+                [name]: err.errors[0]
             })
-
-            setFormValues({
-                ...formValues,
-                [name]: value,
-            })
+        })
+        setFormValues({
+            ...formValues,
+            [name]: value,
+        })
     }
 
-
-    return (
-
-        <form>
-            <h2>Sign In</h2>
+   
+    return(
+       <StyledSignIn onSubmit={submitUser}>
+        <h2>Sign up Form</h2>
+        
             <StyledWarnings>
                 {formErrors.username}
                 {formErrors.password}
             </StyledWarnings>
-            <label>Username</label>
-            <input 
-            values={formValues.username}
-            onChange={onInputChange}
-            type="text"
-            username="username"/>
-            <label>Password</label>
+            <label>username</label>
             <input 
             type="text"
-            password="password"
-            values={formValues.password}
+            name="username"
+            value={formValues.name}
             onChange={onInputChange}/>
-            <button disabled={formDisabled} onClick={onSubmit}>Submit</button>
-        </form>
 
+            <label>password</label>
+            <input 
+            type="password"
+            name="password"
+            value={formValues.password}
+            onChange={onInputChange}/>
+
+            <button onClick={submitUser} disabled={formDisabled}>submit</button>
+            
+        </StyledSignIn>
     )
 }
