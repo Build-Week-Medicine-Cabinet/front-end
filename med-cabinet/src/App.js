@@ -12,6 +12,7 @@ function App() {
 
       <Switch>
         <PrivateRoute exact path={'/userpage'} component={UserPage}/>
+        <Route exact path={'/userpage-test'} component={UserPage}/>
         <Route path={'/signup-form'}>
           <h1>Welcome to the app.</h1>
           <SignupForm />

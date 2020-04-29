@@ -41,7 +41,7 @@ const initialFormErrors = {
 const formValidation = yup.object().shape({
     username: yup
     .string()
-    .min(4, "username must have at lest 4 characters")
+    .min(4, "username must have at least 4 characters")
     .required("username is required"),
     password: yup
     .string()
