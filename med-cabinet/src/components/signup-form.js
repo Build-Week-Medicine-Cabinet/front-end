@@ -64,7 +64,7 @@ export default function SignupForm () {
 
 
     /**********setup post new user no url to post to yet ********/
-   /* const postUser = (user) => {
+    const postUser = (user) => {
 
         axios.post(url,user)
         .then(res => {
@@ -75,7 +75,7 @@ export default function SignupForm () {
             console.log('err')
         })
     }
-8?
+
     /**********cannot input form until data is inputed by user for username and password *******/
     useEffect(() => {
         formValidation.isValid(formValues)
@@ -94,7 +94,7 @@ export default function SignupForm () {
             username: formValues.username,
             password: formValues.password
         }
-       // postUsers(newUser)
+        postUsers(newUser)
         setFormValues(initialFormValues)
     }
 
@@ -123,13 +123,22 @@ export default function SignupForm () {
         })
     }
 
+    /************check box  change*******/
+    const checkboxChange = (evt) => {
+        setFormValues({
+            ...formValues,
+            [event.target.name]: event.target.checked,
+        })
+    }
+
     return(
-       <StyledForm>
+       <StyledForm onSubmit={submitUser}>
         <h2>Sign up Form</h2>
         
             <Warning>
                 {formErrors.username}
                 {formErrors.password}
+                {formErrors.ageVerification}
             </Warning>
             <label>username</label>
             <input 
@@ -144,6 +153,13 @@ export default function SignupForm () {
             password="password"
             value={formValues.password}
             onChange={onInputChange}/>
+
+            <label>You must be 18 to use</label>
+            <input
+            type="checkbox"
+            name="ageVerification"
+            onChange={checkboxChange}
+            />
 
             <button onClick={onSubmit} disabled={formDisabled}>submit</button>
             
