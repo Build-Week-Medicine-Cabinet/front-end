@@ -1,3 +1,5 @@
+import { GET_DATA, POST_DATA, PUT_DATA, DELETE_DATA } from '../action-creators/mainActions'
+
 const initialState = {
     data: [{
         id: 1,
@@ -13,6 +15,11 @@ const initialState = {
         intakeMethod: 'intake method 2',
         intakeSchedule: 'intake schedule 2'
     }],
+    treatmentFormInputs: {
+        ailment: '',
+        effect: '',
+        flavor: '',
+    }
 }
 
 export const mainReducer = (state = initialState, action) => {

@@ -42,16 +42,16 @@ const initialFormErrors = {
 /************form validation or schema ****************/
 const formValidation = yup.object().shape({
     username: yup
-    .string()
-    .min(4, "username must have at lest 4 characters")
-    .required("username is required"),
+        .string()
+        .min(4, "username must have at lest 4 characters")
+        .required("username is required"),
     password: yup
-    .string()
-    .min(4, "password must be at least 4 charaters long")
-    .required("password is required"),
+        .string()
+        .min(4, "password must be at least 4 charaters long")
+        .required("password is required"),
     ageVerification: yup
-    .boolean()
-    .oneOf([false] , "age must be at least 18")
+        .boolean()
+        .oneOf([true] , "age must be at least 18")
 })
 
 
@@ -66,14 +66,14 @@ export default function SignupForm () {
     /**********setup post new user no url to post to yet ********/
     const postUser = (user) => {
 
-        axios.post(url,user)
-        .then(res => {
-            setUsers([...users, res.data])
-            consol.log(res.data)
-        })
-        .catch(err => {
-            console.log('err')
-        })
+        // axios.post(url, user)
+        // .then(res => {
+        //     setUsers([...users, res.data])
+        //     console.log(res.data)
+        // })
+        // .catch(err => {
+        //     console.log(err)
+        // })
     }
 
     /**********cannot input form until data is inputed by user for username and password *******/
@@ -87,20 +87,20 @@ export default function SignupForm () {
     useEffect(() => {
 
     },[users])
-   const onSubmit = evt => {
-        evt.preventDefault()
+   const submitUser = event => {
+        event.preventDefault()
 
         const newUser = {
             username: formValues.username,
             password: formValues.password
         }
-        postUsers(newUser)
+        postUser(newUser)
         setFormValues(initialFormValues)
     }
 
-    const onInputChange = evt => {
-        const name = evt.taget.name
-        const value = evt.target.value
+    const onInputChange = event => {
+        const name = event.target.name
+        const value = event.target.value
 
         yup
         .reach(formValidation, name)
@@ -114,7 +114,7 @@ export default function SignupForm () {
         .catch(err => {
             setFormErrors({
                 ...formErrors,
-                [name]: err.erors[0]
+                [name]: err.errors[0]
             })
         })
         setFormValues({
@@ -124,7 +124,7 @@ export default function SignupForm () {
     }
 
     /************check box  change*******/
-    const checkboxChange = (evt) => {
+    const checkboxChange = (event) => {
         setFormValues({
             ...formValues,
             [event.target.name]: event.target.checked,
@@ -143,14 +143,14 @@ export default function SignupForm () {
             <label>username</label>
             <input 
             type="text"
-            username="username"
-            value={formValues}
+            name="username"
+            value={formValues.name}
             onChange={onInputChange}/>
 
             <label>password</label>
             <input 
-            type="text"
-            password="password"
+            type="password"
+            name="password"
             value={formValues.password}
             onChange={onInputChange}/>
 
@@ -161,9 +161,8 @@ export default function SignupForm () {
             onChange={checkboxChange}
             />
 
-            <button onClick={onSubmit} disabled={formDisabled}>submit</button>
+            <button onClick={submitUser} disabled={formDisabled}>submit</button>
             
         </StyledForm>
     )
-
 }
