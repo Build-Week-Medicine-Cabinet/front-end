@@ -1,5 +1,5 @@
 import React from 'react'
-import Treatment from './TreatmentCard'
+import TreatmentCard from './TreatmentCard'
 
 const TreatmentList = ({data}) => {
     return (
