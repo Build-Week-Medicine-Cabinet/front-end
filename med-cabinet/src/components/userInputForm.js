@@ -22,8 +22,51 @@ const initialFormValues ={
         headaches: false, 
         fatigue: false,
     },
-    effect: '',
-    flavor: '',
+    effect: {
+        happy: false, 
+        relaxed:false,
+        euphoric:false, 
+        uplifted:false, 
+        creative: false,
+        sleepy: false, 
+        energetic:false, 
+        focused: false, 
+        hungry: false, 
+        talkative:false, 
+        tingly: false,
+        giggly:false, 
+        aroused: false, 
+        none: false,
+    },
+    flavor: {
+        earthy: false, 
+        sweet:false, 
+        citrus:false, 
+        pungent:false, 
+        berry:false, 
+        pine:false, 
+        flowery:false, 
+        woody:false,
+        spicy:false, 
+        herbal:false, 
+        lemon:false, 
+        tropical:false, 
+        blueberry:false, 
+        grape:false,
+        orange:false, 
+        pepper:false, 
+        lime:false, 
+        strawberry:false, 
+        grapefruit:false, 
+        sage:false,
+        minty:false, 
+        pineapple:false, 
+        none:false, 
+        lavender:false,  
+        vanilla:false,  
+        apple:false
+
+    },
     
 }
 
@@ -33,7 +76,6 @@ const initialFormErrors = {
 
 /***************form validation not sure how to make just on of the ailments required ******************/
 const formValidation = yup.object().shape({
-    ailments:{
         depression: yup.string(), 
         inflammation: yup.string(), 
         insomnia: yup.string(), 
@@ -46,8 +88,7 @@ const formValidation = yup.object().shape({
         anxiety: yup.string(), 
         headaches: yup.string(), 
         fatigue: yup.string(),
-    }
-    .required("at least one aliment is required"),
+    //.required("at least one aliment is required"),
     effect: yup
     .string(),
     flavor: yup
@@ -63,13 +104,13 @@ export default function UserInputForm () {
     const[formErrors, setFormErrors] = useState(initialFormErrors)
 
     const getUserCard = () => {
-        axios.get(url)
+   /*     axios.get(url)
         .then(res => {
             setUserCard(res.data)
         })
         .catch( err => {
             console.log('err')
-        })
+        }) */
     }
 
     useEffect(() => {
@@ -77,13 +118,13 @@ export default function UserInputForm () {
     }, [])
 
     const postUserCard = card => {
-        axios.post(url, card)
+    /*    axios.post(url, card)
         .then(res => {
             setUserCard([res.data, ...userCard])
         })
         .catch( err => {
             console.log('err')
-        })
+        })  */
     }
 
     useEffect(() => {
@@ -98,7 +139,14 @@ export default function UserInputForm () {
 
         const newUserCard = {
             ailments: Object.keys(formValues.ailments)
-            .filter(ailments => formValues.ailments [ailment] === true)
+            .filter(ailment => formValues.ailments,
+                 [ailment] === true),
+            effect: Object.keys(formValues.effect)
+            .filter(effect => formValues.effect,
+                [effect] === true),
+            flavor: Object.keys(formValues.flavor)
+            .filter(flavor => formValues.flavor,
+                [flavor] === true)
         }
         postUserCard(newUserCard)
         setFormValues(initialFormValues)
@@ -132,65 +180,71 @@ export default function UserInputForm () {
             })
     }
 
-    const onCheckboxChange = evt => {
+    const onCheckboxChange = (evt) => {
         const { name } = evt.target
-        const isChecked = evt.target.isChecked
-
+        const isChecked = evt.target.checked
+            console.log(evt.target.checked)
+            console.log(formValues.ailments.depression)
+           console.log('is working')
         setFormValues({
             ...formValues,
             ailments:{
-                ...formValues.ailments,[name]: isChecked,
+                ...formValues.ailments,
+                [name]: isChecked,
             }
-        })
+        }) 
+        
     }
 
     
     return(
         <form>
             <div>
-                {formErrors.ailments}
+               
             </div>
-        <h2>Ailments</h2>
+        <h2>Symptons</h2>
+        <p>you must check at least one sympton</p>
         <label>depression</label><input type="checkbox" name="depression"
-        checked={formValues.ailments.depression} onCheckboxChange={onCheckboxChange}/>
+        checked={formValues.ailments.depression} onChange={onCheckboxChange}/>
 
-        <labe>inflammation</labe><input type="checkbox" name="inflammation"
-         checked={formValues.ailments.inflammation} onCheckboxChange={onCheckboxChange}/>
+        <label>inflammation</label><input type="checkbox" name="inflammation"
+         checked={formValues.ailments.inflammation} onChange={onCheckboxChange}/>
 
-        <labe>insomnia</labe><input type="checkbox" name="insomnia"
-         checked={formValues.ailments.insomnia} onCheckboxChange={onCheckboxChange}/>
+        <label>insomnia</label><input type="checkbox" name="insomnia"
+         checked={formValues.ailments.insomnonia} onChange={onCheckboxChange}/>
 
-        <labe>lack of appetite</labe><input type="checkbox" name="lackOfAppetite"
-         checked={formValues.ailments.lackOfAppetite} onCheckboxChange={onCheckboxChange}/>
+        <label>lack of appetite</label><input type="checkbox" name="lackOfAppetite"
+         checked={formValues.ailments.lackOfAppetite} onChange={onCheckboxChange}/>
 
-        <labe>muscle spasms</labe><input type="checkbox" name="muscleSpasms"
-         checked={formValues.ailments.muscleSpasms} onCheckboxChange={onCheckboxChange}/>
+        <label>muscle spasms</label><input type="checkbox" name="muscleSpasms"
+         checked={formValues.ailments.muscleSpasms} onChange={onCheckboxChange}/>
 
-        <labe>nausea</labe><input type="checkbox" name="nausea"
-         checked={formValues.ailments.nausea} onCheckboxChange={onCheckboxChange}/>
+        <label>nausea</label><input type="checkbox" name="nausea"
+         checked={formValues.ailments.nausea} onChange={onCheckboxChange}/>
 
-        <labe>pain</labe><input type="checkbox" name="pain"
-         checked={formValues.ailments.pain} onCheckboxChange={onCheckboxChange}/>
+        <label>pain</label><input type="checkbox" name="pain"
+         checked={formValues.ailments.pain} onChange={onCheckboxChange}/>
 
-        <labe>seizures</labe><input type="checkbox" name="seizures"
-         checked={formValues.ailments.seizures} onCheckboxChange={onCheckboxChange}/>
+        <label>seizures</label><input type="checkbox" name="seizures"
+         checked={formValues.ailments.seizures} onChange={onCheckboxChange}/>
 
-        <labe>stress</labe><input type="checkbox" name="stress"
-         checked={formValues.ailments.stress} onCheckboxChange={onCheckboxChange}/>
+        <label>stress</label><input type="checkbox" name="stress"
+         checked={formValues.ailments.stress} onChange={onCheckboxChange}/>
 
-        <labe>anxiety</labe><input type="checkbox" name="anxiety"
-         checked={formValues.ailments.anxiety} onCheckboxChange={onCheckboxChange}/>
+        <label>anxiety</label><input type="checkbox" name="anxiety"
+         checked={formValues.ailments.anxiety} onChange={onCheckboxChange}/>
 
-        <labe>headaches</labe><input type="checkbox" name="headaches"
-         checked={formValues.ailments.headaches} onCheckboxChange={onCheckboxChange}/>
+        <label>headaches</label><input type="checkbox" name="headaches"
+         checked={formValues.ailments.headaches} onChange={onCheckboxChange}/>
 
-        <labe>fatigue</labe><input type="checkbox" name="fatigue"
-         checked={formValues.ailments.fatigue} onCheckboxChange={onCheckboxChange}/>
+        <label>fatigue</label><input type="checkbox" name="fatigue"
+         checked={formValues.ailments.fatigue} onChange={onCheckboxChange}/>
 
-        <label>effect</label><input type="text" name="effect" 
-        values={formValues.effect} onChange={onInputChange}/>
+        <h4>effect</h4>
+            <label>happy</label><input type="checkbox" name="fatigue"
+         checked={formValues.ailments.happy} onChange={onCheckboxChange}/>
         
-        <label>flavor</label><input type="text" name="flavor"
+        <h4>flavor</h4><input type="text" name="flavor"
         values={formValues.flavor} onChange={onInputChange}/>
         <button onClick={onSubmit} disabled={formDisabled}>submit</button>
         </form>
