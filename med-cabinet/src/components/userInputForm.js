@@ -25,6 +25,7 @@
 //     effect: '',
 //     flavor: '',
     
+
 // }
 
 // const initialFormErrors = {
@@ -183,13 +184,17 @@
 
 //         <label>fatigue</label><input type="checkbox" name="fatigue"
 //          checked={formValues.ailments.fatigue} onCheckboxChange={onCheckboxChange}/>
+//}
+
 
 //         <label>effect</label><input type="text" name="effect" 
 //         values={formValues.effect} onChange={onInputChange}/>
         
+
 //         <label>flavor</label><input type="text" name="flavor"
 //         values={formValues.flavor} onChange={onInputChange}/>
 //         <button onClick={onSubmit} disabled={disabled}>submit</button>
 //         </form>
 //     )
 // }
+
