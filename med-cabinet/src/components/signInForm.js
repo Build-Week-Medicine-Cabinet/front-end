@@ -27,8 +27,7 @@ const StyledWarnings = styled.div `
     box-shadow: none;
     margin: 1% 0;
 `
-
-/*************set initial form values and errors  ********************/
+/************set initial form values and errors ******************/
 const initialFormValues = {
     username:'',
     password:'',
@@ -38,20 +37,22 @@ const initialFormErrors = {
     username: '',
     password:'',
 }
-/************* form validation/schema  ***********************/
+/************form validation or schema ****************/
 const formValidation = yup.object().shape({
     username: yup
-    .string()
-    .min(4, "username must have at least 4 characters")
-    .required("username is required"),
+        .string()
+        .min(4, "username must have at least 4 characters")
+        .required("username is required"),
     password: yup
-    .string()
-    .min(4, "password must be at least 4 charaters long")
-    .required("password is required"),
+        .string()
+        .min(4, "password must be at least 4 charaters long")
+        .required("password is required"),
 })
 
 
-export default function SignInForm (){
+
+
+export default function SignupForm () {
 
     const [formValues, setFormValues] = useState(initialFormValues)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
@@ -76,9 +77,10 @@ export default function SignInForm (){
         .catch(err => {
             alert(err)
         })
+
     }
 
-    /*************enable/disable the form depending on what is inputted ************/
+    /**********cannot input form until data is inputed by user for username and password *******/
     useEffect(() => {
         formValidation.isValid(formValues)
         .then(valid => {
@@ -86,16 +88,20 @@ export default function SignInForm (){
         })
     },[formValues])
 
-    const onSubmit = evt => {
-        evt.preventDefault()
+    useEffect(() => {
 
-        const user = {
+    },[users])
+   const submitUser = event => {
+        event.preventDefault()
+
+        const newUser = {
             username: formValues.username,
             password: formValues.password
         }
         setFormValues(initialFormValues)
         loginUser(user)
     }
+
 
     /*************validation for form values when they change *************/
     const onInputChange = evt => {
@@ -124,31 +130,35 @@ export default function SignInForm (){
             [name]: value,
         })
         console.log(formValues)
+
     }
 
-
-    return (
-
-        <form>
-            <h2>Sign In</h2>
+   
+    return(
+       <StyledSignIn onSubmit={submitUser}>
+        <h2>Sign up Form</h2>
+        
             <StyledWarnings>
                 {formErrors.username}
                 {formErrors.password}
             </StyledWarnings>
-            <label>Username</label>
+            <label>username</label>
             <input 
+
             value={formValues.username}
             onChange={onInputChange}
             type="text"
             name="username"/>
             <label>Password</label>
+
             <input 
             type="password"
             name="password"
             value={formValues.password}
             onChange={onInputChange}/>
-            <button disabled={formDisabled} onClick={onSubmit}>Submit</button>
-        </form>
 
+            <button onClick={submitUser} disabled={formDisabled}>submit</button>
+            
+        </StyledSignIn>
     )
 }
