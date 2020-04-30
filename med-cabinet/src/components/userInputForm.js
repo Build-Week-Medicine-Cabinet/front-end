@@ -76,7 +76,7 @@ const initialFormErrors = {
 
 /***************form validation not sure how to make just on of the ailments required ******************/
 const formValidation = yup.object().shape({
-        ailment:{
+        
         depression: yup.string(), 
         inflammation: yup.string(), 
         insomnia: yup.string(), 
@@ -90,8 +90,8 @@ const formValidation = yup.object().shape({
         headaches: yup.string(), 
         fatigue: yup.string(),
     //.required("at least one aliment is required")
-        },
-    effect: {
+        
+    
         happy: yup.string(), 
         relaxed: yup.string(),
         euphoric: yup.string(),
@@ -106,8 +106,8 @@ const formValidation = yup.object().shape({
         giggly:yup.string(),
         aroused: yup.string(),
         none: yup.string(),
-         },
-    flavor: {
+        
+    
         earthy: yup.string(), 
         sweet:yup.string(),
         citrus:yup.string(),
@@ -134,7 +134,7 @@ const formValidation = yup.object().shape({
         lavender:yup.string(),
         vanilla:yup.string(),
         apple:yup.string(),
-        }
+        
 
 })
 
@@ -146,27 +146,27 @@ export default function UserInputForm () {
     const[formErrors, setFormErrors] = useState(initialFormErrors)
 
     const getUserCard = () => {
-   /*     axios.get(url)
-        .then(res => {
-            setUserCard(res.data)
-        })
-        .catch( err => {
-            console.log('err')
-        }) */
+   //    axios.get(url)
+   //     .then(res => {
+   //         setUserCard(res.data)
+   //     })
+   //    .catch( err => {
+   //         console.log('err')
+   //     }) 
     }
 
     useEffect(() => {
         getUserCard()
     }, [])
 
-    const postUserCard = card => {
-    /*    axios.post(url, card)
-        .then(res => {
-            setUserCard([res.data, ...userCard])
-        })
-        .catch( err => {
-            console.log('err')
-        })  */
+    const postUserCard = userCard => {
+      //  axios.post(url, card)
+      //  .then(res => {
+      //      setUserCard([res.data, ...userCard])
+      //  })
+      //  .catch( err => {
+      //      console.log('err')
+      //  })  
     }
 
     useEffect(() => {
@@ -180,19 +180,13 @@ export default function UserInputForm () {
         evt.preventDefault()
 
         const newUserCard = {
-           // ailments: Object.keys(formValues.ailments)
-           // .filter(ailment => formValues.ailments,
-           //      [ailment] === true),
-           // effect: Object.keys(formValues.effect)
-           // .filter(effect => formValues.effect,
-           //     [effect] === true),
-           // flavor: Object.keys(formValues.flavor)
-           // .filter(flavor => formValues.flavor,
-           //     [flavor] === true)
+            ailments: Object.keys(formValues.ailments)
+            .filter(ailment => formValues.ailments
+                [ailment] ===true)
         }
         postUserCard(newUserCard)
         setFormValues(initialFormValues)
-    }
+    } 
 
 
     const onInputChange = evt => {
@@ -236,6 +230,30 @@ export default function UserInputForm () {
             }
         }) 
         
+    }
+
+    const onCheckChange = evt => {
+        const{ name } = evt.target
+        const isChecked = evt.target.checked
+        setFormValues({
+            ...formValues,
+            effect:{
+                ...formValues.effect,
+                [name]: isChecked,
+            }
+        })
+    }
+
+    const onChangeBox = evt => {
+        const{ name } = evt.target
+        const isChecked = evt.target.checked
+        setFormValues({
+            ...formValues,
+            taste:{
+                ...formValues.taste,
+                [name]: isChecked,
+            }
+        })
     }
 
     
@@ -282,129 +300,126 @@ export default function UserInputForm () {
 
         <h4>effect</h4>
             <label>happy</label><input type="checkbox" name="happy"
-         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+         checked={formValues.effect.happy} onChange={onCheckChange}/>
         
         <label>relaxed</label><input type="checkbox" name="relaxed"
-         checked={formValues.effect.relaxed} onChange={onCheckboxChange}/>
+         checked={formValues.effect.relaxed} onChange={onCheckChange}/>
 
         <label>euphoric</label><input type="checkbox" name="euphoric"
-         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+         checked={formValues.effect.ephoric} onChange={onCheckChange}/>
 
-        <label>uplifte</label><input type="checkbox" name="fatigue"
-         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+        <label>uplifted</label><input type="checkbox" name="uplifted"
+         checked={formValues.effect.uplifted} onChange={onCheckChange}/>
 
-        <label>creative</label><input type="checkbox" name="fatigue"
-         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+        <label>creative</label><input type="checkbox" name="creative"
+         checked={formValues.effect.creative} onChange={onCheckChange}/>
 
-        <label>sleepy</label><input type="checkbox" name="fatigue"
-         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+        <label>sleepy</label><input type="checkbox" name="sleepy"
+         checked={formValues.effect.sleepy} onChange={onCheckChange}/>
 
-        <label>energetic</label><input type="checkbox" name="fatigue"
-         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+        <label>energetic</label><input type="checkbox" name="energetic"
+         checked={formValues.effect.energetic} onChange={onCheckChange}/>
 
-        <label>focused</label><input type="checkbox" name="fatigue"
-         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+        <label>focused</label><input type="checkbox" name="focused"
+         checked={formValues.effect.focused} onChange={onCheckChange}/>
 
-        <label>hungy</label><input type="checkbox" name="fatigue"
-         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+        <label>hungry</label><input type="checkbox" name="hungry"
+         checked={formValues.effect.hungry} onChange={onCheckChange}/>
 
-        <label>talkative</label><input type="checkbox" name="fatigue"
-         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+        <label>talkative</label><input type="checkbox" name="talkative"
+         checked={formValues.effect.talkative} onChange={onCheckChange}/>
 
-        <label>tingly</label><input type="checkbox" name="fatigue"
-         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
-
-        <label>giggly</label><input type="checkbox" name="fatigue"
-         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+        <label>tingly</label><input type="checkbox" name="tingly"
+         checked={formValues.effect.tingly} onChange={onCheckChange}/>
 
         <label>giggly</label><input type="checkbox" name="fatigue"
-         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+         checked={formValues.effect.happy} onChange={onCheckChange}/>
 
-        <label>aroused</label><input type="checkbox" name="fatigue"
-         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+        <label>aroused</label><input type="checkbox" name="aroused"
+         checked={formValues.effect.aroused} onChange={onCheckChange}/>
 
         <label>none</label>label><input type="checkbox" name="none"
-         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+         checked={formValues.effect.none} onChange={onCheckChange}/>
 
         <h4>flavor</h4>
         
-        <label>earthy</label><input type="text" name="earthy"
-        values={formValues.flavor.earthy} onChange={onInputChange}/>
+        <label>earthy</label><input type='checkbox' name="earthy"
+        values={formValues.flavor.earthy} onChange={ onChangeBox}/>
 
-        <label>sweet</label><input type="text" name="sweet"
-        values={formValues.flavor.sweet} onChange={onInputChange}/>
+        <label>sweet</label><input type='checkbox' name="sweet"
+        values={formValues.flavor.sweet} onChange={ onChangeBox}/>
 
-        <label>citrus</label><input type="text" name="citrus"
-        values={formValues.flavor.citrus} onChange={onInputChange}/>
+        <label>citrus</label><input type='checkbox' name="citrus"
+        values={formValues.flavor.citrus} onChange={ onChangeBox}/>
 
-        <label>pungent</label><input type="text" name="pungent"
-        values={formValues.flavor.pungent} onChange={onInputChange}/>
+        <label>pungent</label><input type='checkbox' name="pungent"
+        values={formValues.flavor.pungent} onChange={ onChangeBox}/>
 
-        <label>berry</label><input type="text" name="berry"
-        values={formValues.flavor.berry} onChange={onInputChange}/>
+        <label>berry</label><input type='checkbox' name="berry"
+        values={formValues.flavor.berry} onChange={ onChangeBox}/>
 
-        <label>pine</label><input type="text" name="pine"
-        values={formValues.flavor.pine} onChange={onInputChange}/>
+        <label>pine</label><input type='checkbox' name="pine"
+        values={formValues.flavor.pine} onChange={ onChangeBox}/>
 
-        <label>flowery</label><input type="text" name="flowery"
-        values={formValues.flavor.flowery} onChange={onInputChange}/>
+        <label>flowery</label><input type='checkbox' name="flowery"
+        values={formValues.flavor.flowery} onChange={ onChangeBox}/>
 
-        <label>woody</label><input type="text" name="woody"
-        values={formValues.flavor.woody} onChange={onInputChange}/>
+        <label>woody</label><input type='checkbox' name="woody"
+        values={formValues.flavor.woody} onChange={ onChangeBox}/>
 
-        <label>spicy</label><input type="text" name="spicy"
-        values={formValues.flavor.spicy} onChange={onInputChange}/>
+        <label>spicy</label><input type='checkbox' name="spicy"
+        values={formValues.flavor.spicy} onChange={ onChangeBox}/>
 
-        <label>herbal</label><input type="text" name="herbal"
-        values={formValues.flavor.herbal} onChange={onInputChange}/>
+        <label>herbal</label><input type='checkbox' name="herbal"
+        values={formValues.flavor.herbal} onChange={ onChangeBox}/>
 
-        <label>lemon</label><input type="text" name="lemon"
-        values={formValues.flavor.lemon} onChange={onInputChange}/>
+        <label>lemon</label><input type='checkbox' name="lemon"
+        values={formValues.flavor.lemon} onChange={ onChangeBox}/>
 
-        <label>tropical</label><input type="text" name="tropical"
-        values={formValues.flavor.tropical} onChange={onInputChange}/>
+        <label>tropical</label><input type='checkbox' name="tropical"
+        values={formValues.flavor.tropical} onChange={ onChangeBox}/>
 
-        <label>blueberry</label><input type="text" name="bluebery"
-        values={formValues.flavor.blueberry} onChange={onInputChange}/>
+        <label>blueberry</label><input type='checkbox' name="bluebery"
+        values={formValues.flavor.blueberry} onChange={ onChangeBox}/>
 
-        <label>grape</label><input type="text" name="grape"
-        values={formValues.flavor.grape} onChange={onInputChange}/>
+        <label>grape</label><input type='checkbox' name="grape"
+        values={formValues.flavor.grape} onChange={ onChangeBox}/>
 
-        <label>orange</label><input type="text" name="orange"
-        values={formValues.flavor.orange} onChange={onInputChange}/>
+        <label>orange</label><input type='checkbox' name="orange"
+        values={formValues.flavor.orange} onChange={ onChangeBox}/>
 
-        <label>pepper</label><input type="text" name="pepper"
-        values={formValues.flavor.pepper} onChange={onInputChange}/>
+        <label>pepper</label><input type='checkbox' name="pepper"
+        values={formValues.flavor.pepper} onChange={ onChangeBox}/>
 
-        <label>lime</label><input type="text" name="lime"
-        values={formValues.flavor.lime} onChange={onInputChange}/>
+        <label>lime</label><input type='checkbox' name="lime"
+        values={formValues.flavor.lime} onChange={ onChangeBox}/>
 
-        <label>strawberry</label><input type="text" name="strawberry"
-        values={formValues.flavor.strawberry} onChange={onInputChange}/>
+        <label>strawberry</label><input type='checkbox' name="strawberry"
+        values={formValues.flavor.strawberry} onChange={ onChangeBox}/>
 
-        <label>grapefruit</label><input type="text" name="grapefruit"
-        values={formValues.flavor.grapefruit} onChange={onInputChange}/>
+        <label>grapefruit</label><input type='checkbox' name="grapefruit"
+        values={formValues.flavor.grapefruit} onChange={ onChangeBox}/>
 
-        <label>sage</label><input type="text" name="sage"
-        values={formValues.flavor.sage} onChange={onInputChange}/>
+        <label>sage</label><input type='checkbox' name="sage"
+        values={formValues.flavor.sage} onChange={ onChangeBox}/>
 
-        <label>minty</label><input type="text" name="minty"
-        values={formValues.flavor.minty} onChange={onInputChange}/>
+        <label>minty</label><input type='checkbox' name="minty"
+        values={formValues.flavor.minty} onChange={ onChangeBox}/>
 
-        <label>pineapple</label><input type="text" name="pineapple"
-        values={formValues.flavor.pineapple} onChange={onInputChange}/>
+        <label>pineapple</label><input type='checkbox' name="pineapple"
+        values={formValues.flavor.pineapple} onChange={ onChangeBox}/>
 
-        <label>lavender</label><input type="text" name="lavender"
-        values={formValues.flavor.lavender} onChange={onInputChange}/>
+        <label>lavender</label><input type='checkbox' name="lavender"
+        values={formValues.flavor.lavender} onChange={ onChangeBox}/>
 
-        <label>vanilla</label><input type="text" name="vanilla"
-        values={formValues.flavor.vanilla} onChange={onInputChange}/>
+        <label>vanilla</label><input type='checkbox' name="vanilla"
+        values={formValues.flavor.vanilla} onChange={ onChangeBox}/>
 
-        <label>apple</label><input type="text" name="apple"
-        values={formValues.flavor.apple} onChange={onInputChange}/>
+        <label>apple</label><input type='checkbox' name="apple"
+        values={formValues.flavor.apple} onChange={ onChangeBox}/>
 
-        <label>none</label><input type="text" name="none"
-        values={formValues.flavor.none} onChange={onInputChange}/>
+        <label>none</label><input type='checkbox' name="none"
+        values={formValues.flavor.none} onChange={ onChangeBox}/>
 
         <button onClick={onSubmit} disabled={formDisabled}>submit</button>
         </form>
