@@ -2,25 +2,30 @@ import { GET_DATA, POST_DATA, PUT_DATA, DELETE_DATA } from '../action-creators/m
 
 const initialState = {
     data: [{
-        id: 1,
-        strainName: 'strain 1',
-        dose: 'dose 1',
-        intakeMethod: 'intake method 1',
-        intakeSchedule: 'intake schedule 1'
+        effect: ["Happy", "Creative"],
+        flavor: ["Citrus", "Spicy"],
+        symptoms: ["Pain", "Stress", "Insomnia"],
+        results:[
+           "stain name 1",
+           "stain name 2",
+           "stain name 3",
+           "stain name 4",
+           "stain name 5"
+        ]
     }, 
     {
-        id: 2,
-        strainName: 'strain 2',
-        dose: 'dose 2',
-        intakeMethod: 'intake method 2',
-        intakeSchedule: 'intake schedule 2'
+        effect: ["Happy", "Creative"],
+        flavor: ["Citrus", "Spicy"],
+        symptoms: ["Pain", "Stress", "Insomnia"],
+        results: [
+           "stain name 1",
+           "stain name 2",
+           "stain name 3",
+           "stain name 4",
+           "stain name 5"
+        ]
     }],
-    treatmentFormInputs: {
-        ailments: [],
-        effects: [],
-        flavors: [],
-    },
-    loginMessage: ''
+    expandedData: {},
 }
 
 export const mainReducer = (state = initialState, action) => {

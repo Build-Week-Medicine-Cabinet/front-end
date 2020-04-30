@@ -6,13 +6,14 @@ import PrivateRoute from './components/PrivateRoute'
 import UserPage from './components/UserPage'
 import './App.css'
 import './components/signup-form'
+import UserInputForm from './components/userInputForm'
 
 function App() {
   return (
     <div className="App">
       <Switch>
         <PrivateRoute exact path={'/userpage'} component={UserPage}/>
-        <Route exact path={'/userpage-test'} component={UserPage}/>
+        <PrivateRoute exact path={'/addtreatment'} component={UserInputForm} />
         <Route exact path={'/signup'}>
           <h1>Welcome to the app new people!</h1>
           <SignupForm />
