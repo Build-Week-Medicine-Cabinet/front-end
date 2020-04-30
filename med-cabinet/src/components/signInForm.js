@@ -88,9 +88,6 @@ export default function SignupForm () {
         })
     },[formValues])
 
-    useEffect(() => {
-
-    },[users])
    const submitUser = event => {
         event.preventDefault()
 
@@ -99,7 +96,7 @@ export default function SignupForm () {
             password: formValues.password
         }
         setFormValues(initialFormValues)
-        loginUser(user)
+        loginUser(newUser)
     }
 
 
