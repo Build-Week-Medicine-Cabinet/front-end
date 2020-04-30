@@ -76,6 +76,7 @@ const initialFormErrors = {
 
 /***************form validation not sure how to make just on of the ailments required ******************/
 const formValidation = yup.object().shape({
+        ailment:{
         depression: yup.string(), 
         inflammation: yup.string(), 
         insomnia: yup.string(), 
@@ -88,11 +89,52 @@ const formValidation = yup.object().shape({
         anxiety: yup.string(), 
         headaches: yup.string(), 
         fatigue: yup.string(),
-    //.required("at least one aliment is required"),
-    effect: yup
-    .string(),
-    flavor: yup
-    .string()
+    //.required("at least one aliment is required")
+        },
+    effect: {
+        happy: yup.string(), 
+        relaxed: yup.string(),
+        euphoric: yup.string(),
+        uplifted:yup.string(),
+        creative: yup.string(),
+        sleepy: yup.string(),
+        energetic: yup.string(),
+        focused: yup.string(),
+        hungry: yup.string(), 
+        talkative: yup.string(),
+        tingly: yup.string(),
+        giggly:yup.string(),
+        aroused: yup.string(),
+        none: yup.string(),
+         },
+    flavor: {
+        earthy: yup.string(), 
+        sweet:yup.string(),
+        citrus:yup.string(),
+        pungent:yup.string(),
+        berry:yup.string(),
+        pine:yup.string(),
+        flowery:yup.string(),
+        woody:yup.string(),
+        spicy:yup.string(),
+        herbal:yup.string(),
+        lemon:yup.string(),
+        tropical:yup.string(),
+        blueberry:yup.string(),
+        grape:yup.string(),
+        orange:yup.string(),
+        pepper:yup.string(),
+        lime:yup.string(),
+        strawberry:yup.string(),
+        grapefruit:yup.string(),
+        sage:yup.string(),
+        minty:yup.string(),
+        pineapple:yup.string(),
+        none:yup.string(),
+        lavender:yup.string(),
+        vanilla:yup.string(),
+        apple:yup.string(),
+        }
 
 })
 
@@ -138,15 +180,15 @@ export default function UserInputForm () {
         evt.preventDefault()
 
         const newUserCard = {
-            ailments: Object.keys(formValues.ailments)
-            .filter(ailment => formValues.ailments,
-                 [ailment] === true),
-            effect: Object.keys(formValues.effect)
-            .filter(effect => formValues.effect,
-                [effect] === true),
-            flavor: Object.keys(formValues.flavor)
-            .filter(flavor => formValues.flavor,
-                [flavor] === true)
+           // ailments: Object.keys(formValues.ailments)
+           // .filter(ailment => formValues.ailments,
+           //      [ailment] === true),
+           // effect: Object.keys(formValues.effect)
+           // .filter(effect => formValues.effect,
+           //     [effect] === true),
+           // flavor: Object.keys(formValues.flavor)
+           // .filter(flavor => formValues.flavor,
+           //     [flavor] === true)
         }
         postUserCard(newUserCard)
         setFormValues(initialFormValues)
@@ -199,9 +241,7 @@ export default function UserInputForm () {
     
     return(
         <form>
-            <div>
-               
-            </div>
+            
         <h2>Symptons</h2>
         <p>you must check at least one sympton</p>
         <label>depression</label><input type="checkbox" name="depression"
@@ -241,11 +281,131 @@ export default function UserInputForm () {
          checked={formValues.ailments.fatigue} onChange={onCheckboxChange}/>
 
         <h4>effect</h4>
-            <label>happy</label><input type="checkbox" name="fatigue"
-         checked={formValues.ailments.happy} onChange={onCheckboxChange}/>
+            <label>happy</label><input type="checkbox" name="happy"
+         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
         
-        <h4>flavor</h4><input type="text" name="flavor"
-        values={formValues.flavor} onChange={onInputChange}/>
+        <label>relaxed</label><input type="checkbox" name="relaxed"
+         checked={formValues.effect.relaxed} onChange={onCheckboxChange}/>
+
+        <label>euphoric</label><input type="checkbox" name="euphoric"
+         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+
+        <label>uplifte</label><input type="checkbox" name="fatigue"
+         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+
+        <label>creative</label><input type="checkbox" name="fatigue"
+         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+
+        <label>sleepy</label><input type="checkbox" name="fatigue"
+         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+
+        <label>energetic</label><input type="checkbox" name="fatigue"
+         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+
+        <label>focused</label><input type="checkbox" name="fatigue"
+         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+
+        <label>hungy</label><input type="checkbox" name="fatigue"
+         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+
+        <label>talkative</label><input type="checkbox" name="fatigue"
+         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+
+        <label>tingly</label><input type="checkbox" name="fatigue"
+         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+
+        <label>giggly</label><input type="checkbox" name="fatigue"
+         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+
+        <label>giggly</label><input type="checkbox" name="fatigue"
+         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+
+        <label>aroused</label><input type="checkbox" name="fatigue"
+         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+
+        <label>none</label>label><input type="checkbox" name="none"
+         checked={formValues.effect.happy} onChange={onCheckboxChange}/>
+
+        <h4>flavor</h4>
+        
+        <label>earthy</label><input type="text" name="earthy"
+        values={formValues.flavor.earthy} onChange={onInputChange}/>
+
+        <label>sweet</label><input type="text" name="sweet"
+        values={formValues.flavor.sweet} onChange={onInputChange}/>
+
+        <label>citrus</label><input type="text" name="citrus"
+        values={formValues.flavor.citrus} onChange={onInputChange}/>
+
+        <label>pungent</label><input type="text" name="pungent"
+        values={formValues.flavor.pungent} onChange={onInputChange}/>
+
+        <label>berry</label><input type="text" name="berry"
+        values={formValues.flavor.berry} onChange={onInputChange}/>
+
+        <label>pine</label><input type="text" name="pine"
+        values={formValues.flavor.pine} onChange={onInputChange}/>
+
+        <label>flowery</label><input type="text" name="flowery"
+        values={formValues.flavor.flowery} onChange={onInputChange}/>
+
+        <label>woody</label><input type="text" name="woody"
+        values={formValues.flavor.woody} onChange={onInputChange}/>
+
+        <label>spicy</label><input type="text" name="spicy"
+        values={formValues.flavor.spicy} onChange={onInputChange}/>
+
+        <label>herbal</label><input type="text" name="herbal"
+        values={formValues.flavor.herbal} onChange={onInputChange}/>
+
+        <label>lemon</label><input type="text" name="lemon"
+        values={formValues.flavor.lemon} onChange={onInputChange}/>
+
+        <label>tropical</label><input type="text" name="tropical"
+        values={formValues.flavor.tropical} onChange={onInputChange}/>
+
+        <label>blueberry</label><input type="text" name="bluebery"
+        values={formValues.flavor.blueberry} onChange={onInputChange}/>
+
+        <label>grape</label><input type="text" name="grape"
+        values={formValues.flavor.grape} onChange={onInputChange}/>
+
+        <label>orange</label><input type="text" name="orange"
+        values={formValues.flavor.orange} onChange={onInputChange}/>
+
+        <label>pepper</label><input type="text" name="pepper"
+        values={formValues.flavor.pepper} onChange={onInputChange}/>
+
+        <label>lime</label><input type="text" name="lime"
+        values={formValues.flavor.lime} onChange={onInputChange}/>
+
+        <label>strawberry</label><input type="text" name="strawberry"
+        values={formValues.flavor.strawberry} onChange={onInputChange}/>
+
+        <label>grapefruit</label><input type="text" name="grapefruit"
+        values={formValues.flavor.grapefruit} onChange={onInputChange}/>
+
+        <label>sage</label><input type="text" name="sage"
+        values={formValues.flavor.sage} onChange={onInputChange}/>
+
+        <label>minty</label><input type="text" name="minty"
+        values={formValues.flavor.minty} onChange={onInputChange}/>
+
+        <label>pineapple</label><input type="text" name="pineapple"
+        values={formValues.flavor.pineapple} onChange={onInputChange}/>
+
+        <label>lavender</label><input type="text" name="lavender"
+        values={formValues.flavor.lavender} onChange={onInputChange}/>
+
+        <label>vanilla</label><input type="text" name="vanilla"
+        values={formValues.flavor.vanilla} onChange={onInputChange}/>
+
+        <label>apple</label><input type="text" name="apple"
+        values={formValues.flavor.apple} onChange={onInputChange}/>
+
+        <label>none</label><input type="text" name="none"
+        values={formValues.flavor.none} onChange={onInputChange}/>
+
         <button onClick={onSubmit} disabled={formDisabled}>submit</button>
         </form>
     )
