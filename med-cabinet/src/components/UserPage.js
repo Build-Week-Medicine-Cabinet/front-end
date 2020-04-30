@@ -15,7 +15,7 @@ const UserPage = () => {
 
     return (
         <div className='user-page'>
-            <h1>User Page</h1>
+            <h1>My Treatment Recommendations</h1>
             <TreatmentList data={data}/>
         </div>
     )
