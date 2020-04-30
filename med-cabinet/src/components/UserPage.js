@@ -9,9 +9,9 @@ const UserPage = () => {
     const data = useSelector(state => state.data)
 
     // get data for initial render
-    useEffect(() => {
-        dispatch(getDataAction())
-    }, [])
+    // useEffect(() => {
+    //     dispatch(getDataAction())
+    // }, [])
 
     return (
         <div className='user-page'>

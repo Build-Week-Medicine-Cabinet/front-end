@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 import * as yup from "yup";
 import styled from "styled-components";
 import axios from "axios";
+import { useHistory } from 'react-router-dom'
+// import { useDispatch } from 'react-redux'
 
 
 /*********styled components *************/
@@ -36,7 +38,7 @@ const initialFormValues = {
 const initialFormErrors = {
     username: '',
     password:'',
-    ageVerification: false,
+    ageVerification: '',
 }
 
 /************form validation or schema ****************/
@@ -57,23 +59,27 @@ const formValidation = yup.object().shape({
 
 
 export default function SignupForm () {
-    const [users, setUsers] = useState([])
+    
     const [formValues, setFormValues] = useState(initialFormValues)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
     const [formDisabled, setFormDisabled] = useState(true)
 
+    const history = useHistory() // will be used to redirect user to login page
+    // const dispatch = useDispatch() // will be used to send message to state
 
-    /**********setup post new user no url to post to yet ********/
-    const postUser = (user) => {
 
-        // axios.post(url, user)
-        // .then(res => {
-        //     setUsers([...users, res.data])
-        //     console.log(res.data)
-        // })
-        // .catch(err => {
-        //     console.log(err)
-        // })
+    /**********Juan's post user registration request********/
+    const registerUser = user => {
+        console.log(user)
+        axios.post('https://med-cabinet-tk-be.herokuapp.com/api/auth/register', user)
+            .then(response => {
+                console.log(response)
+                setFormValues(initialFormValues)
+                history.push('/login') // redirect user to login page
+            })
+            .catch(error => {
+                alert(error) // let user see the error as it could be that they created an account that already exists
+            })
     }
 
     /**********cannot input form until data is inputed by user for username and password *******/
@@ -84,24 +90,22 @@ export default function SignupForm () {
         })
     },[formValues])
 
-    useEffect(() => {
-
-    },[users])
    const submitUser = event => {
         event.preventDefault()
 
         const newUser = {
             username: formValues.username,
-            password: formValues.password
+            password: formValues.password,
+            over18: formValues.ageVerification
         }
-        postUser(newUser)
         setFormValues(initialFormValues)
+        registerUser(newUser)
     }
 
     const onInputChange = event => {
         const name = event.target.name
         const value = event.target.value
-
+        console.log(formValues)
         yup
         .reach(formValidation, name)
         .validate(value)
@@ -158,6 +162,7 @@ export default function SignupForm () {
             <input
             type="checkbox"
             name="ageVerification"
+            checked={formValues.ageVerification}
             onChange={checkboxChange}
             />
 

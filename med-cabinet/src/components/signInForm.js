@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import * as yup from "yup";
 import styled from "styled-components";
 import axios from "axios";
+import { useHistory } from 'react-router-dom'
 
 
 /****************stylling ********************/
@@ -52,20 +53,28 @@ const formValidation = yup.object().shape({
 
 export default function SignInForm (){
 
-    const [user, setUser] = useState([])
     const [formValues, setFormValues] = useState(initialFormValues)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
     const [formDisabled, setFormDisabled] = useState(true)
 
-    /**************post user *****************/
+    const history = useHistory()
 
-    const postUser = user => {
-        axios.post(url, friend)
-        .then(res => {
-            setUser(res.data)
+    /**************Juan's loginUser function logs user in and stores token *****************/
+
+    const loginUser = user => {
+        console.log(formValues)
+        axios.post('https://med-cabinet-tk-be.herokuapp.com/api/auth/login', user)
+        .then(response => {
+            console.log(response)
+            setFormValues(initialFormValues)
+            // save token to local storage
+            console.log(response)
+            localStorage.setItem('token', response.data.token)
+            // push to userpage
+            history.push('/userpage')
         })
         .catch(err => {
-            console.log('err')
+            alert(err)
         })
     }
 
@@ -84,14 +93,14 @@ export default function SignInForm (){
             username: formValues.username,
             password: formValues.password
         }
-         postUser(user)
         setFormValues(initialFormValues)
+        loginUser(user)
     }
 
     /*************validation for form values when they change *************/
     const onInputChange = evt => {
         const name = evt.target.name 
-        const value = evt.target.name
+        const value = evt.target.value
 
         yup
             .reach(formValidation, name)
@@ -106,14 +115,15 @@ export default function SignInForm (){
             .catch(err => {
                 setFormErrors({
                     ...formErrors,
-                    [name]: er.errors[0]
+                    [name]: err.errors[0]
                 })
             })
 
-            setFormValues({
-                ...formValues,
-                [name]: value,
-            })
+        setFormValues({
+            ...formValues,
+            [name]: value,
+        })
+        console.log(formValues)
     }
 
 
@@ -127,15 +137,15 @@ export default function SignInForm (){
             </StyledWarnings>
             <label>Username</label>
             <input 
-            values={formValues.username}
+            value={formValues.username}
             onChange={onInputChange}
             type="text"
-            username="username"/>
+            name="username"/>
             <label>Password</label>
             <input 
-            type="text"
-            password="password"
-            values={formValues.password}
+            type="password"
+            name="password"
+            value={formValues.password}
             onChange={onInputChange}/>
             <button disabled={formDisabled} onClick={onSubmit}>Submit</button>
         </form>
