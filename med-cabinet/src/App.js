@@ -15,9 +15,7 @@ function App() {
         <PrivateRoute exact path={'/userpage'} component={UserPage}/>
         <PrivateRoute exact path={'/addtreatment'} component={UserInputForm} />
         <Route exact path={'/'}>
-
           <h1>Welcome to the app new people!!</h1>
-
           <SignupForm />
         </Route>
         <Route exact path={'/login'}>
