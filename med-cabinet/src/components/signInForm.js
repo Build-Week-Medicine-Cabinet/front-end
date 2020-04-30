@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import * as yup from "yup";
 import styled from "styled-components";
 import axios from "axios";
+import { useHistory } from 'react-router-dom'
 
 
 /****************stylling ********************/
@@ -50,24 +51,33 @@ const formValidation = yup.object().shape({
 
 
 
+
 export default function SignupForm () {
-    const [users, setUsers] = useState([])
+
     const [formValues, setFormValues] = useState(initialFormValues)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
     const [formDisabled, setFormDisabled] = useState(true)
 
+    const history = useHistory()
 
-    /**********setup post new user no url to post to yet ********/
-    const postUser = (user) => {
+    /**************Juan's loginUser function logs user in and stores token *****************/
 
-        // axios.post(url, user)
-        // .then(res => {
-        //     setUsers([...users, res.data])
-        //     console.log(res.data)
-        // })
-        // .catch(err => {
-        //     console.log(err)
-        // })
+    const loginUser = user => {
+        console.log(formValues)
+        axios.post('https://med-cabinet-tk-be.herokuapp.com/api/auth/login', user)
+        .then(response => {
+            console.log(response)
+            setFormValues(initialFormValues)
+            // save token to local storage
+            console.log(response)
+            localStorage.setItem('token', response.data.token)
+            // push to userpage
+            history.push('/userpage')
+        })
+        .catch(err => {
+            alert(err)
+        })
+
     }
 
     /**********cannot input form until data is inputed by user for username and password *******/
@@ -88,33 +98,39 @@ export default function SignupForm () {
             username: formValues.username,
             password: formValues.password
         }
-        postUser(newUser)
         setFormValues(initialFormValues)
+        loginUser(user)
     }
 
-    const onInputChange = event => {
-        const name = event.target.name
-        const value = event.target.value
+
+    /*************validation for form values when they change *************/
+    const onInputChange = evt => {
+        const name = evt.target.name 
+        const value = evt.target.value
 
         yup
-        .reach(formValidation, name)
-        .validate(value)
-        .then(valid => {
-            setFormErrors({
-                ...formErrors,
-                [name]: '',
+            .reach(formValidation, name)
+            .validate(value)
+            .then(valid => {
+                setFormErrors({
+                    ...formErrors,
+                    [name]: '',
+                })
             })
-        })
-        .catch(err => {
-            setFormErrors({
-                ...formErrors,
-                [name]: err.errors[0]
+
+            .catch(err => {
+                setFormErrors({
+                    ...formErrors,
+                    [name]: err.errors[0]
+                })
             })
-        })
+
         setFormValues({
             ...formValues,
             [name]: value,
         })
+        console.log(formValues)
+
     }
 
    
@@ -128,12 +144,13 @@ export default function SignupForm () {
             </StyledWarnings>
             <label>username</label>
             <input 
-            type="text"
-            name="username"
-            value={formValues.name}
-            onChange={onInputChange}/>
 
-            <label>password</label>
+            value={formValues.username}
+            onChange={onInputChange}
+            type="text"
+            name="username"/>
+            <label>Password</label>
+
             <input 
             type="password"
             name="password"

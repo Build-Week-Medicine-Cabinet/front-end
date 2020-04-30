@@ -8,6 +8,6 @@ export const axiosWithAuth = () => {
       'Authorization': `${token}`,
       'Content-Type': 'application/json'
     },
-    baseURL: 'http://localhost:5000'
+    baseURL: 'https://med-cabinet-tk-be.herokuapp.com/'
   })
 }

@@ -16,10 +16,11 @@ const initialState = {
         intakeSchedule: 'intake schedule 2'
     }],
     treatmentFormInputs: {
-        ailment: '',
-        effect: '',
-        flavor: '',
-    }
+        ailments: [],
+        effects: [],
+        flavors: [],
+    },
+    loginMessage: ''
 }
 
 export const mainReducer = (state = initialState, action) => {
@@ -46,6 +47,11 @@ export const mainReducer = (state = initialState, action) => {
                 ...state,
                 data: action.payload,
             }
+        // case CREATE_LOGIN_MESSAGE: // customizes the login message
+        //     return {
+        //         ...state,
+        //         loginMessage: action.payload
+        //     }
         default:
             return state
     }
