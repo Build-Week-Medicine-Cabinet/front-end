@@ -37,8 +37,10 @@ function App() {
   return (
     <div className="App">
       <Nav>
-        <Img src={logo} alt='medicabinet logo'/>
-        <Link style={{textDecoration: 'none', color: 'black'}}to='/'>Home</Link>
+        <Link to='/'>
+          <Img src={logo} alt='medicabinet logo'/>
+        </Link>
+        <Link style={{textDecoration: 'none', color: 'black'}}to='/userpage'>My List</Link>
 
         {/* if logged out display login link, if logged in display logout button */}
         {location.pathname === '/signup' || location.pathname === '/login' ? <Link to='/login'>Login</Link> : <StyledButton style={{backgroundColor: 'black'}} onClick={logout}>Logout</StyledButton>}

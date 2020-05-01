@@ -139,7 +139,7 @@ export default function SignupForm () {
                 {formErrors.username}
                 {formErrors.password}
             </StyledWarnings>
-            <label>username</label>
+            <label>Username</label>
             <input 
 
             value={formValues.username}
