@@ -19,11 +19,11 @@ function App() {
         <PrivateRoute exact path={'/edittreatment'} component={EditForm} />
         <PrivateRoute exact path={'/expanded'} component={Expanded} />
         <Route exact path={'/signup'}>
+
           <h1>Welcome to the app new people!!</h1>
           <SignupForm />
         </Route>
-        
-        
+
         <Route exact path={'/login'}>
           <h1>Welcome to the app users!</h1>
           <SignInForm />
