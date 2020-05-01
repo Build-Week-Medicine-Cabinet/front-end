@@ -2,7 +2,9 @@ import React, {useEffect, useState } from 'react'
 import * as yup from "yup";
 import styled from "styled-components";
 import axios from "axios";
-
+import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { postDataAction } from '../action-creators/mainActions'
 
 const StyledInput = styled.form `
     display:flex;
@@ -18,7 +20,7 @@ const initialFormValues = {
 }
 
 const initialFormErrors = {
-    Symptons:''
+    Symptoms:''
 }
 
 /************form validation or schema ****************/
@@ -40,32 +42,30 @@ export default function SignupForm () {
     const [formErrors, setFormErrors] = useState(initialFormErrors)
     const [formDisabled, setFormDisabled] = useState(true)
 
-/************axios get *******************/
-const getSearch = () => {
-   // axios.get(url)
-   // .then(res => {
-   //     setSearch(res.data)
-  //  })
-  //  .catch(err => {
-  //      console.log(err)
-  //  })
-}
-
-    useEffect(() => {
-        getSearch()
-    },[])
+    const dispatch = useDispatch()
+    const history = useHistory()
 
     /**********setup post new user no url to post to yet ********/
-    const postSearch = (search) => {
-
-        // axios.post(url, user)
-        // .then(res => {
-        //     setUsers([...users, res.data])
-        //     console.log(res.data)
-        // })
-        // .catch(err => {
-        //     console.log(err)
-        // })
+    // Juan's post request
+    const postSearch = search => {
+        console.log(search)
+        // for flask (data science) API (needs to be insertable into url)
+        const formattedSearch = {
+            // eliminate any spaces between the values in the string
+            effects: search.Effects.toLowerCase().split(', ').join(',').replace(/ /g, '-'),
+            flavors: search.Flavors.toLowerCase().split(', ').join(',').replace(/ /g, '-'),
+            symptoms: search.Symptoms.toLowerCase().split(', ').join(',').replace(/ /g, '-')
+        }
+        // for Node backend API
+        const recordedSearch = {
+            effects: search.Effects.toLowerCase().split(', '),
+            flavors: search.Flavors.toLowerCase().split(', '),
+            symptoms: search.Symptoms.toLowerCase().split(', ')
+        }
+        console.log(formattedSearch)
+        console.log(recordedSearch)
+        dispatch(postDataAction(formattedSearch, recordedSearch))
+        history.push('/userpage')
     }
 
     /**********cannot input form until data is inputed by user for username and password *******/
@@ -76,20 +76,18 @@ const getSearch = () => {
         })
     },[formValues])
 
-    useEffect(() => {
-
-    },[search])
 
    const submitSearch = event => {
         event.preventDefault()
 
         const newSearch = {
-            Symptons: formValues.Symptons,
+            Symptoms: formValues.Symptoms,
             Effects: formValues.Effects,
             Flavors: formValues.Flavors,
         }
-        postSearch(newSearch)
+        
         setFormValues(initialFormValues)
+        postSearch(newSearch)
     }
 
     const onInputChange = event => {
@@ -123,10 +121,10 @@ const getSearch = () => {
         <StyledInput>
          <div>
              <div>
-                 {formErrors.Symptons}
+                 {formErrors.Symptoms}
              </div>
-             <h3>Symptons</h3>
-            <p>This is a list of symptons you can search from 
+             <h3>Symptoms</h3>
+            <p>This is a list of symptoms you can search from 
                 if you are inputting multiple items please seperate with a comma (,)</p> 
                 <p>depression, inflammation, insomnia, lack of appetite, muscle spasms, nausea, pain, seizures,
                     stress, anxiety, headaches, fatigue

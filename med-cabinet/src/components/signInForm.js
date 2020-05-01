@@ -133,7 +133,7 @@ export default function SignupForm () {
    
     return(
        <StyledSignIn onSubmit={submitUser}>
-        <h2>Sign up Form</h2>
+        <h2>Login Form</h2>
         
             <StyledWarnings>
                 {formErrors.username}

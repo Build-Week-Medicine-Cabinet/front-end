@@ -26,6 +26,8 @@ const initialState = {
         ]
     }],
     expandedData: {},
+    // counter makes sure app refreshes by getting updated data for the treatment list
+    refreshCounter: 0
 }
 
 export const mainReducer = (state = initialState, action) => {
@@ -38,7 +40,7 @@ export const mainReducer = (state = initialState, action) => {
         case POST_DATA:
             return {
                 ...state,
-                data: action.payload,
+                refreshCounter: state.refreshCounter + 1
                 // clear form after post
             }
         case PUT_DATA: 
