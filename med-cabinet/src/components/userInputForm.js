@@ -154,7 +154,7 @@ export default function UserInputForm () {
 
         <Card>
             <h4>Flavors</h4>
-            <p>This is a list of flavors please seperate multiple flavors with a coma (,)</p>
+            <p>This is a list of flavors please seperate multiple flavors with a comma (,)</p>
             <p>earthy, sweet, citrus, pungent, berry, pine, flowery, woody, spicy, herbal,
                 lemon, tropical, blueberry, grape, orange, pepper, lime, strawberry, grapefruit, sage,
                 minty, pineaple, lavender, vanilla, apple
