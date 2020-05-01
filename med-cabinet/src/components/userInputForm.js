@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { postDataAction } from '../action-creators/mainActions'
+import { Card, StyledButton } from '../components/styledComponents'
 
 const StyledInput = styled.form `
     display:flex;
@@ -124,10 +125,11 @@ export default function UserInputForm () {
    
     return(
         <StyledInput>
-         <div>
+         <Card>
              <div>
                  {formErrors.Symptoms}
              </div>
+        
              <h3>Symptoms</h3>
             <p>This is a list of symptoms you can search from 
                 if you are inputting multiple items please seperate with a comma (,)</p> 
@@ -137,32 +139,33 @@ export default function UserInputForm () {
             <label>Symptom/s</label>
             <input type='text' name='Symptoms' 
             value={formValues.Symptoms} onChange={onInputChange}/>
-        </div>
-        <h4>Effects</h4>
-        <p>This is a list of effects please seperate multiple effects with a comma (,) </p>
-        <p>happy, relaxed, euphoric, uplifted, creative, sleepy, energetic, focused, hungry, talkative, tingly,
-            giggly, aroused
-        </p>
-        <div>
-        <label>Effect/s</label>
-        <input type='text' name='Effects'
-        value={formValues.Effects} onChange={onInputChange}/> 
-         </div>
+        </Card>
+        <Card>
+            <h4>Effects</h4>
+            <p>This is a list of effects please seperate multiple effects with a comma (,) </p>
+            <p>happy, relaxed, euphoric, uplifted, creative, sleepy, energetic, focused, hungry, talkative, tingly,
+                giggly, aroused
+            </p>
+            <label>Effect/s</label>
+            <input type='text' name='Effects'
+            value={formValues.Effects} onChange={onInputChange}/> 
+        </Card>
+        
 
-        <div>
-            <h4>flavors</h4>
+        <Card>
+            <h4>Flavors</h4>
             <p>This is a list of flavors please seperate multiple flavors with a coma (,)</p>
             <p>earthy, sweet, citrus, pungent, berry, pine, flowery, woody, spicy, herbal,
-                lemon, tropical, blueberry, grape, orange, pepper, line strawberry, grapefruit, sage,
+                lemon, tropical, blueberry, grape, orange, pepper, lime, strawberry, grapefruit, sage,
                 minty, pineaple, lavender, vanilla, apple
             </p>
             <label>Flavor/s</label>
             <input type='text' name='Flavors'
             value={formValues.Flavors} onChange={onInputChange}/>
-        </div>
+        </Card>
         <div>
 
-        <button onClick={submitSearch} disabled={formDisabled}>submit</button>
+        <StyledButton onClick={submitSearch} disabled={formDisabled}>Submit</StyledButton>
 
         </div>
         </StyledInput>
