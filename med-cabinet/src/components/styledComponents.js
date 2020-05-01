@@ -22,6 +22,7 @@ export const StyledButton = styled.button`
     border-radius: 10px;
     cursor: pointer;
     margin: 2px;
+    padding: 5px;
 `
 export const ButtonContainer = styled.div`
     display: flex;

@@ -52,7 +52,7 @@ export default function UserInputForm () {
         } else if (search.Flavors === '') {
             search.Flavors = 'none'
         } else if (search.Effect === '') {
-            search.Flavors = 'none'
+            search.Effect = 'none'
         }
         // for flask (data science) API (needs to be insertable into url)
         const formattedSearch = {
