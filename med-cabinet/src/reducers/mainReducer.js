@@ -1,33 +1,11 @@
-import { GET_DATA, POST_DATA, PUT_DATA, DELETE_DATA } from '../action-creators/mainActions'
+import { GET_DATA, POST_DATA, PUT_DATA, DELETE_DATA, SET_POST_TO_EDIT, GET_DATA_BY_ID, SEARCH } from '../action-creators/mainActions'
 
 const initialState = {
-    data: [{
-        effect: ["Happy", "Creative"],
-        flavor: ["Citrus", "Spicy"],
-        symptoms: ["Pain", "Stress", "Insomnia"],
-        results:[
-           "stain name 1",
-           "stain name 2",
-           "stain name 3",
-           "stain name 4",
-           "stain name 5"
-        ]
-    }, 
-    {
-        effect: ["Happy", "Creative"],
-        flavor: ["Citrus", "Spicy"],
-        symptoms: ["Pain", "Stress", "Insomnia"],
-        results: [
-           "stain name 1",
-           "stain name 2",
-           "stain name 3",
-           "stain name 4",
-           "stain name 5"
-        ]
-    }],
+    data: [],
     expandedData: {},
+    postToEdit: {},
     // counter makes sure app refreshes by getting updated data for the treatment list
-    refreshCounter: 0
+    refreshCounter: 0,
 }
 
 export const mainReducer = (state = initialState, action) => {
@@ -35,30 +13,35 @@ export const mainReducer = (state = initialState, action) => {
         case GET_DATA:
             return {
                 ...state,
-                data: action.payload
+                data: action.payload,
             }
         case POST_DATA:
             return {
                 ...state,
                 refreshCounter: state.refreshCounter + 1
-                // clear form after post
             }
         case PUT_DATA: 
             return {
                 ...state,
-                data: action.payload,
-                // clear form after post
+                refreshCounter: state.refreshCounter + 1,
+                // clear postToEdit
+                postToEdit: {}
             }
         case DELETE_DATA:
             return {
                 ...state,
-                data: action.payload,
+                refreshCounter: state.refreshCounter + 1,
             }
-        // case CREATE_LOGIN_MESSAGE: // customizes the login message
-        //     return {
-        //         ...state,
-        //         loginMessage: action.payload
-        //     }
+        case GET_DATA_BY_ID:
+            return  {
+                ...state,
+                expandedData: action.payload
+            }
+        case SET_POST_TO_EDIT:
+            return {
+                ...state,
+                postToEdit: action.payload
+            }
         default:
             return state
     }

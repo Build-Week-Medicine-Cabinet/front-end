@@ -4,11 +4,14 @@ import { getDataAction } from '../action-creators/mainActions'
 import TreatmentList from './TreatmentList'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
 
+
 const UserPage = () => {
     // Redux hooks
     const dispatch = useDispatch()
     const data = useSelector(state => state.data)
     const refreshCounter = useSelector(state => state.refreshCounter)
+
+    
 
     // get data for initial render
     useEffect(() => {
@@ -24,7 +27,7 @@ const UserPage = () => {
     return (
         <div className='user-page'>
             <h1>My Treatment Recommendations</h1>
-            <TreatmentList data={data}/>
+            <TreatmentList data={data} />
         </div>
     )
 }

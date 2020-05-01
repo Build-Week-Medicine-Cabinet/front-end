@@ -1,7 +1,6 @@
 import React, {useEffect, useState } from 'react'
 import * as yup from "yup";
 import styled from "styled-components";
-import axios from "axios";
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { postDataAction } from '../action-creators/mainActions'
@@ -9,9 +8,7 @@ import { postDataAction } from '../action-creators/mainActions'
 const StyledInput = styled.form `
     display:flex;
     flex-direction:column;
-    align-items:center;
-    
-    
+    align-items:center;  
 `
 const initialFormValues = {
     Symptoms:'',
@@ -36,8 +33,7 @@ const formValidation = yup.object().shape({
 
 
 
-export default function SignupForm () {
-    const [search, setSearch] = useState([])
+export default function UserInputForm () {
     const [formValues, setFormValues] = useState(initialFormValues)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
     const [formDisabled, setFormDisabled] = useState(true)
@@ -49,9 +45,18 @@ export default function SignupForm () {
     // Juan's post request
     const postSearch = search => {
         console.log(search)
+        // if effects or flavors are blank assign the value 'none'
+        if (search.Effects === '' && search.Flavors === ''){
+            search.Effects = 'none'
+            search.Flavors = 'none'
+        } else if (search.Flavors === '') {
+            search.Flavors = 'none'
+        } else if (search.Effect === '') {
+            search.Flavors = 'none'
+        }
         // for flask (data science) API (needs to be insertable into url)
         const formattedSearch = {
-            // eliminate any spaces between the values in the string
+            // eliminate any spaces between the two word values in the string and replace them with a -
             effects: search.Effects.toLowerCase().split(', ').join(',').replace(/ /g, '-'),
             flavors: search.Flavors.toLowerCase().split(', ').join(',').replace(/ /g, '-'),
             symptoms: search.Symptoms.toLowerCase().split(', ').join(',').replace(/ /g, '-')
