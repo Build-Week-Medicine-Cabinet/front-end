@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 
@@ -7,6 +7,7 @@ const SearchBar = props => {
     const SearchInput = styled.input`
         width: 220px;
     `
+
     const Form = styled.form`
         margin-top: 10px;
     `

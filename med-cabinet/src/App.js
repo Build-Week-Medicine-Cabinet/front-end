@@ -16,10 +16,9 @@ import './App.css'
 function App() {
   const Nav = styled.nav`
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     background-color: #F6F8F7;
-    padding: 0 20px;
   `
 
   const Img = styled.img`
