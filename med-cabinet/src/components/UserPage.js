@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDataAction } from '../action-creators/mainActions'
 import TreatmentList from './TreatmentList'
+import { axiosWithAuth } from '../utils/axiosWithAuth'
 
 const UserPage = () => {
     // Redux hooks
@@ -9,9 +10,15 @@ const UserPage = () => {
     const data = useSelector(state => state.data)
 
     // get data for initial render
-    // useEffect(() => {
-    //     dispatch(getDataAction())
-    // }, [])
+     useEffect(() => {
+        axiosWithAuth()
+            .get('/api/searches')
+            .then(response => {
+              dispatch(getDataAction(response.data))   
+            }) 
+            .catch(error => alert(error))
+     }, [])
+     
 
     return (
         <div className='user-page'>
