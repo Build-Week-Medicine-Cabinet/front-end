@@ -157,7 +157,7 @@ export default function UserInputForm () {
             <p>This is a list of flavors please seperate multiple flavors with a comma (,)</p>
             <p>earthy, sweet, citrus, pungent, berry, pine, flowery, woody, spicy, herbal,
                 lemon, tropical, blueberry, grape, orange, pepper, lime, strawberry, grapefruit, sage,
-                minty, pineaple, lavender, vanilla, apple
+                minty, pineapple, lavender, vanilla, apple
             </p>
             <label>Flavor/s</label>
             <input type='text' name='Flavors'

@@ -144,21 +144,21 @@ export default function SignupForm () {
                 {formErrors.password}
                 {formErrors.ageVerification}
             </Warning>
-            <label>username</label>
+            <label>Username</label>
             <input 
             type="text"
             name="username"
             value={formValues.name}
             onChange={onInputChange}/>
 
-            <label>password</label>
+            <label>Password</label>
             <input 
             type="password"
             name="password"
             value={formValues.password}
             onChange={onInputChange}/>
 
-            <label>You must be 18 to use</label>
+            <label>Check if you are at least 18 years old</label>
             <input
             type="checkbox"
             name="ageVerification"
