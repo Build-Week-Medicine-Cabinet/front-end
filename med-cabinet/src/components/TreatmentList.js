@@ -3,22 +3,14 @@ import styled from 'styled-components'
 import TreatmentCard from './TreatmentCard'
 import { Link } from 'react-router-dom'
 import SearchBar from './SearchBar'
-import { searchAction } from '../action-creators/mainActions'
-import { useDispatch } from 'react-redux'
+
 
 
 const TreatmentList = ({data}) => {
     const [searchInput, setSearchInput] = useState('')
 
-    const dispatch = useDispatch()
-
     const updateSearch = event => {
         setSearchInput(event.target.value)
-    }
-
-    const submitSearch = event => {
-        event.preventDefault()
-        dispatch(searchAction(searchInput))
     }
 
     // filter by dataRender
@@ -47,7 +39,7 @@ const TreatmentList = ({data}) => {
     return (
         <TreatmentContainer>
             <Link to='/addtreatment' style={{minWidth: '80%', textDecoration: 'none'}}><AddNewTreatment>+</AddNewTreatment></Link>
-            <SearchBar searchInput={searchInput} submitSearch={submitSearch} updateSearch={updateSearch}/>
+            <SearchBar searchInput={searchInput} updateSearch={updateSearch}/>
             {dataToRender.map((treatment, index) => <TreatmentCard key={treatment.id} index={index} treatment={treatment} />)}
         </TreatmentContainer>
     )
